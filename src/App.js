@@ -1,11 +1,16 @@
-
+// import MainContainer from './container/MainContainer';
+import NavBar from './components/NavBar';
+import Routes from './config/routes';
 import './App.css';
+
 
 function App() {
   return (
-    <div>
-      <h1>Expense Tracker</h1>
-    </div>
+    <>
+      <NavBar />
+      <Routes />
+      {/* <Footer /> */}
+    </>
   );
 }
 
