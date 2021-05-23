@@ -6,9 +6,10 @@ import CreatePage from '../components/forms/CreateForm';
 const HomePage = () => {
   const [refresh, setRefresh] = useState(null);
   const [budgetCard, setBudgetCard] = useState([]);
-
-  useEffect(() => {}, [refresh, budgetCard]);
-
+  useEffect(() => {
+    
+  }, [refresh, budgetCard]);
+ 
   const total = budgetCard.reduce(
     (totalAmount, budget) => totalAmount + +budget.expense,
     0

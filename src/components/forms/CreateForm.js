@@ -16,7 +16,7 @@ const CreatePage = ({ budgetCard, setBudgetCard }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-
+    
     setBudgetCard([...budgetCard, budgetForm]);
     setBudgetForm({
       name: '',
