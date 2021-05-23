@@ -6,8 +6,7 @@ import CreatePage from '../components/forms/CreateForm';
 const HomePage = () => {
   const [refresh, setRefresh] = useState(null);
   const [budgetCard, setBudgetCard] = useState([]);
-  // const [total, setTotal] = useState(0);
-  console.log(budgetCard);
+
   useEffect(() => {}, [refresh, budgetCard]);
 
   const total = budgetCard.reduce(
@@ -30,13 +29,20 @@ const HomePage = () => {
       <br />
       {budgetCard &&
         budgetCard.map((budget, index) => {
-          return <InfoCard budget={budget} key={index} />;
+          return (
+            <InfoCard
+              budget={budget}
+              key={index}
+              setBudgetCard={setBudgetCard}
+              budgetCard={budgetCard}
+            />
+          );
         })}
 
       <div className='budgetCont'>
         <div className='budgetCard'>
           <span>Total:</span>
-          <span>{total}</span>         
+          <span>{total}</span>
         </div>
       </div>
     </>
