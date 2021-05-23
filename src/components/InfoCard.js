@@ -6,6 +6,9 @@ const InfoCard = ({ budget }) => {
           <span>{budget.name}</span>
           <span>{budget.expense}</span>
         </div>
+
+        <i className='fas fa-marker'></i>
+        <i className='fas fa-trash-alt'></i>
       </div>
     </>
   );

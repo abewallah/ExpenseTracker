@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import InfoCard from '../components/InfoCard';
-import CreatePage from '../pages/CreatePage';
+import CreatePage from '../components/forms/CreateForm';
 
 const HomePage = () => {
   const [refresh, setRefresh] = useState(null);
@@ -11,7 +11,7 @@ const HomePage = () => {
   useEffect(() => {}, [refresh, budgetCard]);
 
   const total = budgetCard.reduce(
-    (totalAmount, budget) => totalAmount + parseInt(budget.expense, 10),
+    (totalAmount, budget) => totalAmount + +budget.expense,
     0
   );
   console.log(total);
@@ -36,17 +36,7 @@ const HomePage = () => {
       <div className='budgetCont'>
         <div className='budgetCard'>
           <span>Total:</span>
-          <span>{total}</span>
-          {/* {
-            let total = 0;
-          for(let i = 0; i < budgetCard.length; i++){
-            if(budgetCard.expense){
-              total += budgetCard.expense;
-            }
-          }
-          return (
-            <span>{total}</span>
-          )} */}
+          <span>{total}</span>         
         </div>
       </div>
     </>
