@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const CreatePage = ({ budgetCard, setBudgetCard }) => {
+const EditForm = ({ index, budget, budgetCard, setBudgetCard }) => {
   const [editForm, setEditForm] = useState({
-    name: '',
-    expense: '',
+    name: budget.name,
+    expense: budget.expense,
   });
 
   const handleChange = (event) => {
@@ -18,14 +18,10 @@ const CreatePage = ({ budgetCard, setBudgetCard }) => {
     event.preventDefault();
 
     setBudgetCard([...budgetCard, editForm]);
-    setEditForm({
-      name: '',
-      expense: '',
-    });
   }
 
   return (
-    <div className='card-footer'>
+    <div id={`editForm${index}`} className='card-footer d-none'>
       <div className='input-group mb-3'>
         <input
           type='text'
@@ -55,4 +51,4 @@ const CreatePage = ({ budgetCard, setBudgetCard }) => {
   );
 };
 
-export default CreatePage;
+export default EditForm;
