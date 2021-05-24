@@ -7,7 +7,15 @@ const HomePage = () => {
   const [refresh, setRefresh] = useState(null);
   const [budgetCard, setBudgetCard] = useState([]);
   const [budgetAmount, setBudgetAmount] = useState('0');
-  useEffect(() => {}, [refresh, budgetCard]);
+
+  useEffect(() => {
+    fetch('https://locolhost:4000/budget/index')
+      .then((response) => response.json())
+      .then((data) => {
+        setBudgetCard(data);
+      })
+      .catch((err) => console.log(err));
+  }, [refresh, budgetCard]);
 
   const total = budgetCard.reduce(
     (totalAmount, budget) => totalAmount + +budget.expense,
@@ -30,7 +38,11 @@ const HomePage = () => {
       <div className='title'>
         <span className='spanTitle'>Budget Your Spending</span>
       </div>
-      <CreateForm budgetCard={budgetCard} setBudgetCard={setBudgetCard} />
+      <CreateForm
+        budgetCard={budgetCard}
+        setBudgetCard={setBudgetCard}
+        setRefresh={setRefresh}
+      />
       <div className='pieChart'></div>
       <div className='card-footer'>
         <div className='input-group mb-3'>
