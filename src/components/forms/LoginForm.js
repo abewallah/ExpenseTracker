@@ -32,10 +32,8 @@ export default function LoginForm() {
 				if (data.error) {
 					setError(data.error);
 				} else {
-					// Store Token in localStorage
+					// Store userId in localStorage
 					localStorage.setItem('userId', data._id);
-					// Update authState in App.js
-					// setToken(data.token);
 					history.push('/hompage');
 				}
 			})
@@ -55,7 +53,7 @@ export default function LoginForm() {
 				<div className="flex flex-col bg-gray-400 text-black border-black border-2  p-2 m-2">
 					<label htmlFor="email">UserName</label>
 					<input
-						type="text"
+						type="email"
 						name="email"
 						id="email"
 						value={email}

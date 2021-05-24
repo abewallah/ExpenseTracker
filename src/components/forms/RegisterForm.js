@@ -59,7 +59,7 @@ export default function RegisterForm({ setWelcome, welcome }) {
 				<div className="flex flex-col bg-gray-400 text-black border-black border-2 p-2 m-2">
 					<label htmlFor="email">Email</label>
 					<input
-						type="text"
+						type="email"
 						name="email"
 						id="email"
 						value={email}
