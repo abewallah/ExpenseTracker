@@ -16,7 +16,7 @@ const CreatePage = ({ budgetCard, setBudgetCard }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-
+    
     setBudgetCard([...budgetCard, budgetForm]);
     setBudgetForm({
       name: '',
@@ -31,7 +31,7 @@ const CreatePage = ({ budgetCard, setBudgetCard }) => {
           type='text'
           name='name'
           className='form-control type_msg'
-          placeholder='Add Name'
+          placeholder='Add Item'
           value={budgetForm.name}
           onChange={handleChange}
         />
