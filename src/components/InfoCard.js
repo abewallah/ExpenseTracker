@@ -24,6 +24,8 @@ const InfoCard = ({ index, budget, budgetCard, setBudgetCard }) => {
         </span>
         <i className='fas fa-trash-alt'></i>
       </div>
+      <hr />
+      <br />
     </>
   );
 };
