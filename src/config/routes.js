@@ -8,7 +8,7 @@ function Routes() {
   return (
     <Switch>
       <Route exact path='/' component={LandingPage} />
-      <Route path='/homepage' component={MainContainer} />
+      <Route path='/homepage/:id' component={MainContainer} />
 
       {/* <Route path='/register' component={RegisterPage} /> */}
       {/* <Route path='/login' component={LoginPage} /> */}

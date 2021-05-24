@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CreatePage = ({ budgetCard, setBudgetCard }) => {
+const CreatePage = ({ setRefresh }) => {
   const [budgetForm, setBudgetForm] = useState({
     name: '',
     expense: '',
@@ -10,18 +10,32 @@ const CreatePage = ({ budgetCard, setBudgetCard }) => {
     event.persist();
     setBudgetForm((budgetForm) => ({
       ...budgetForm,
-      [event.target.name]: event.target.value,
+      name: event.target.value,
     }));
   };
 
   function handleSubmit(event) {
     event.preventDefault();
-    
-    setBudgetCard([...budgetCard, budgetForm]);
-    setBudgetForm({
-      name: '',
-      expense: '',
-    });
+    const userId = localStorage.getItem('userId') || 1;
+    const obj = { ...budgetForm, user: userId };
+    fetch('https://locolhost:4000/budget/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setBudgetForm({
+          name: '',
+          expense: '',
+        });
+        setRefresh(data.name);
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
