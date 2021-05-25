@@ -4,19 +4,27 @@ import InfoCard from '../components/InfoCard';
 import CreateForm from '../components/forms/CreateForm';
 
 const HomePage = () => {
-  const obj = {userId: localStorage.getItem('userId')};
+  const obj = { userId: localStorage.getItem('userId') };
   const [refresh, setRefresh] = useState(null);
   const [budgetCard, setBudgetCard] = useState([]);
-  const [budgetAmount, setBudgetAmount] = useState('0');
+  const [budgetAmount, setBudgetAmount] = useState({
+    amount: '0',
+    setAmount: '0',
+  });
+
+  const total = budgetCard.reduce(
+    (totalAmount, budget) => totalAmount + +budget.expense,
+    0
+  );
 
   useEffect(() => {
-    fetch('https://young-shelf-82889.herokuapp.com/budget/index',{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(obj),
-		})
+    fetch('https://young-shelf-82889.herokuapp.com/budget/index', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -25,10 +33,6 @@ const HomePage = () => {
       .catch((err) => console.log(err));
   }, [refresh]);
 
-  const total = budgetCard.reduce(
-    (totalAmount, budget) => totalAmount + +budget.expense,
-    0
-  );
   const handleBudgetAmountChange = (event) => {
     event.persist();
     setBudgetAmount(() => ({
@@ -39,7 +43,10 @@ const HomePage = () => {
   const handleBudgetAmountSubmit = (event) => {
     event.preventDefault();
 
-    setBudgetAmount('');
+    setBudgetAmount({
+      setAmount: budgetAmount.amount,
+      amount: '0',
+    });
   };
   return (
     <>
@@ -56,11 +63,11 @@ const HomePage = () => {
         <div className='input-group mb-3'>
           <input
             id='budgetAmount'
-            name='budgetAmount'
+            name='amount'
             className='form-control type_msg'
             type='text'
             placeholder='Whats your Budget?'
-            value={budgetAmount}
+            value={budgetAmount.amount}
             onChange={handleBudgetAmountChange}
           />
           <span
@@ -71,9 +78,11 @@ const HomePage = () => {
             <i className='fas fa-plus-circle'></i>
           </span>
         </div>
-        <span className='text-white'>Your Budget Amount is:</span>
+        <span className='text-white'>
+          Your Budget Amount is: {budgetAmount.setAmount}
+        </span>
       </div>
-      {total > budgetAmount && (
+      {total > +budgetAmount.setAmount && (
         <div className='alert alert-danger' role='alert'>
           {' '}
           You Have Exceeded your Budget
@@ -95,6 +104,7 @@ const HomePage = () => {
                   budget={budget}
                   key={budget._id}
                   index={index}
+                  setRefresh={setRefresh}
                 />
               );
             })}
