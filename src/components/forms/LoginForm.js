@@ -16,7 +16,7 @@ export default function LoginForm() {
 
 		const userObj = { email, password };
 
-		fetch('https://localhost:4000/user/login', {
+		fetch('https://young-shelf-82889.herokuapp.com/user/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export default function LoginForm() {
 				} else {
 					// Store userId in localStorage
 					localStorage.setItem('userId', data._id);
-					history.push('/hompage');
+					history.push('/homepage');
 				}
 			})
 			.catch((err) => {

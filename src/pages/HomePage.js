@@ -4,18 +4,26 @@ import InfoCard from '../components/InfoCard';
 import CreateForm from '../components/forms/CreateForm';
 
 const HomePage = () => {
+  const obj = {userId: localStorage.getItem('userId')};
   const [refresh, setRefresh] = useState(null);
   const [budgetCard, setBudgetCard] = useState([]);
   const [budgetAmount, setBudgetAmount] = useState('0');
 
   useEffect(() => {
-    fetch('https://locolhost:4000/budget/index')
+    fetch('https://young-shelf-82889.herokuapp.com/budget/index',{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(obj),
+		})
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setBudgetCard(data);
       })
       .catch((err) => console.log(err));
-  }, [refresh, budgetCard]);
+  }, [refresh]);
 
   const total = budgetCard.reduce(
     (totalAmount, budget) => totalAmount + +budget.expense,
@@ -85,9 +93,8 @@ const HomePage = () => {
               return (
                 <InfoCard
                   budget={budget}
-                  key={index}
-                  setBudgetCard={setBudgetCard}
-                  budgetCard={budgetCard}
+                  key={budget._id}
+                  index={index}
                 />
               );
             })}

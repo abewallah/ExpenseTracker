@@ -19,7 +19,7 @@ export default function RegisterForm({ setWelcome, welcome }) {
 
 		const userObj = { email, password, confirm };
 
-		fetch('https://localhost:4000/user', {
+		fetch('https://young-shelf-82889.herokuapp.com/user', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

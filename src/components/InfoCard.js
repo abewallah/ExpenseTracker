@@ -1,6 +1,6 @@
 import EditForm from './forms/EditForm';
 
-const InfoCard = ({ index, budget, budgetCard, setBudgetCard }) => {
+const InfoCard = ({ index, budget }) => {
   const toggleEditForm = () => {
     document.getElementById(`budgetCard${index}`).style.display = 'none';
     document.getElementById(`editForm${index}`).style.display = 'block';
@@ -15,8 +15,6 @@ const InfoCard = ({ index, budget, budgetCard, setBudgetCard }) => {
         </div>
         <EditForm
           index={index}
-          budgetCard={budgetCard}
-          setBudgetCard={setBudgetCard}
           budget={budget}
         />
         <span onClick={() => toggleEditForm()}>

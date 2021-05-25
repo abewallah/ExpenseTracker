@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const CreatePage = ({ setRefresh }) => {
+  const userId = localStorage.getItem('userId');
   const [budgetForm, setBudgetForm] = useState({
     name: '',
     expense: '',
@@ -8,17 +9,16 @@ const CreatePage = ({ setRefresh }) => {
 
   const handleChange = (event) => {
     event.persist();
-    setBudgetForm((budgetForm) => ({
+    setBudgetForm({
       ...budgetForm,
-      name: event.target.value,
-    }));
+      [event.target.name]: event.target.value,
+    });
   };
 
   function handleSubmit(event) {
     event.preventDefault();
-    const userId = localStorage.getItem('userId') || 1;
     const obj = { ...budgetForm, user: userId };
-    fetch('https://locolhost:4000/budget/', {
+    fetch('https://young-shelf-82889.herokuapp.com/budget', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
