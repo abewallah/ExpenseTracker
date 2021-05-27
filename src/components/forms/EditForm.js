@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
-const EditForm = ({ index, budget, budgetCard, setBudgetCard }) => {
+const EditForm = ({ budget, setRefresh }) => {
+  const toggleEditForm = () => {
+    document.getElementById(`budgetCard${budget._id}`).style.display = 'flex';
+    document.getElementById(`editForm${budget._id}`).style.display = 'none';
+  };
+
+  const userId = localStorage.getItem('userId');
   const [editForm, setEditForm] = useState({
     name: budget.name,
     expense: budget.expense,
@@ -16,12 +22,34 @@ const EditForm = ({ index, budget, budgetCard, setBudgetCard }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    setBudgetCard([...budgetCard, editForm]);
+    const obj = { ...editForm, user: userId };
+    fetch(`https://young-shelf-82889.herokuapp.com/budget/${budget._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setEditForm({
+          name: '',
+          expense: '',
+        });
+        toggleEditForm();
+        setRefresh(data);
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
-    <div id={`editForm${index}`} className='card-footer d-none'>
+    <div
+      id={`editForm${budget._id}`}
+      style={{ display: 'none' }}
+      className='card-footer'
+    >
       <div className='input-group mb-3'>
         <input
           type='text'
